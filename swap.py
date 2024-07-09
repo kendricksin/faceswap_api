@@ -4,10 +4,20 @@ import insightface
 from insightface.app import FaceAnalysis
 from fastapi import FastAPI, File, UploadFile, HTTPException
 from fastapi.responses import StreamingResponse, JSONResponse
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import io
 
 swap = FastAPI()
+
+# ALlow Cross-origin
+swap.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allow your frontend origin
+    allow_credentials=True,
+    allow_methods=["*"],  # Allows all methods
+    allow_headers=["*"],  # Allows all headers
+)
 
 # Initialize FaceAnalysis
 face_app = FaceAnalysis(name='buffalo_l')
